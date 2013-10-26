@@ -5,7 +5,7 @@
 
 (deftest solution-95
   (testing "To Tree, or not to Tree"
-    (let [test-trees [
+    (let [test-values [
          ; [is-binary tree]
            [true  '(:a (:b nil nil) nil)]
            [false '(:a (:b nil nil))]
@@ -15,5 +15,5 @@
            [false [1 [2 [3 [4 false nil] nil] nil] nil]]
            [false '(:a nil ())]
          ]]
-      (doseq [[is-binary tree] test-trees]
+      (doseq [[is-binary tree] test-values]
         (is (= (com.4clojure/solution-95 tree) is-binary))))))
