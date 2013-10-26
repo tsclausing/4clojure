@@ -2,7 +2,8 @@
   " 4clojure.com problem solutions.
 
   The complete list of problems may be found at http://www.4clojure.com/problems
-  or http://www.4clojure.com/problem/{number} for individual problems.")
+  or http://www.4clojure.com/problem/{number} for individual problems."
+  (:require clojure.set))
 
 
 (def solution-93
@@ -24,4 +25,13 @@
         (nil? %)
         (and (sequential? %) (= 3 (count %))))
       (tree-seq sequential? rest root)))
+)
+
+
+(def solution-153
+  (fn [set-of-sets]
+    "Given a set of sets, return true if the sets are pairwise (mutually) disjoint."
+    (let [count-all (reduce + (map count set-of-sets))
+          count-unique (count (reduce clojure.set/union set-of-sets))]
+      (= count-all count-unique)))
 )
