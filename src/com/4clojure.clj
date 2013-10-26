@@ -5,6 +5,17 @@
   or http://www.4clojure.com/problem/{number} for individual problems.")
 
 
+(def solution-93
+  (fn [root]
+    "Given a nested sequence, flatten to the leaves which contain only non-sequential values."
+    (filter
+      #(and
+        (sequential? %)
+        (every? (complement sequential?) %))
+      (tree-seq sequential? identity root)))
+)
+
+
 (def solution-95
   (fn [root]
     "Given a root [value left-node right-node], determine whether or not the tree is a binary tree."

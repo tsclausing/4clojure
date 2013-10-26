@@ -3,6 +3,18 @@
             [com.4clojure]))
 
 
+(deftest solution-93
+  (testing "Partially Flatten a Sequence"
+    (let [test-values [
+         ; [flattened original]
+           [[["Do"] ["Nothing"]], [["Do"] ["Nothing"]]]
+           [[[:a :b] [:c :d] [:e :f]], [[[[:a :b]]] [[:c :d]] [:e :f]]]
+           ['((1 2)(3 4)(5 6)), '((1 2)((3 4)((((5 6))))))]
+         ]]
+      (doseq [[flattened original] test-values]
+        (is (= (com.4clojure/solution-93 original) flattened))))))
+
+
 (deftest solution-95
   (testing "To Tree, or not to Tree"
     (let [test-values [
