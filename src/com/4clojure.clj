@@ -1,11 +1,13 @@
 (ns com.4clojure
-  "Solutions to problems found at http://www.4clojure.com/problems")
+  " 4clojure.com problem solutions.
+
+  The complete list of problems may be found at http://www.4clojure.com/problems
+  or http://www.4clojure.com/problem/{number} for individual problems.")
 
 
 (def solution-95
-  (fn binary-tree? [root]
-    "Given a root [value left-node right-node], determine whether or not the tree is a binary tree.
-     http://www.4clojure.com/problem/95"
+  (fn [root]
+    "Given a root [value left-node right-node], determine whether or not the tree is a binary tree."
     (every?
       #(or
         (nil? %)
