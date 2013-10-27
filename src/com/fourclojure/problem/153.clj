@@ -14,4 +14,12 @@
 )
 
 
-(def solutions [my-solution])
+(def aceeca1
+  (fn [set-of-sets]
+    "http://www.4clojure.com/user/aceeca1"
+    (apply distinct? (apply concat set-of-sets)))
+)
+
+
+(def solutions [my-solution
+                aceeca1])
