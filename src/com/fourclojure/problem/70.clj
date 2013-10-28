@@ -7,8 +7,8 @@
 
 (def my-solution
   (fn [sentence]
-    (let [words (clojure.string/split sentence #"[^\w]")]
-      (sort #(apply compare (map clojure.string/lower-case [%1 %2])) words)))
+    (let [words (re-seq #"\w+" sentence)]
+      (sort-by clojure.string/lower-case words)))
 )
 
 
