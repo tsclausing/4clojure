@@ -18,4 +18,13 @@
 )
 
 
-(def solutions [my-solution])
+(def aceeca1
+  (fn [x]
+    (let [x (distinct (sort x))
+          add (fn [[s t] x] (if (= 1 (- x t)) [s x] [x x]))]
+      (map last (partition-by first (next (reductions add [0 (first x)] x))))))
+)
+
+
+(def solutions [my-solution
+                aceeca1])
