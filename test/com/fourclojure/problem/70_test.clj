@@ -1,4 +1,4 @@
-(ns com.fourclojure.problem.70_test
+(ns com.fourclojure.problem.70-test
   (:require [clojure.test :refer [deftest testing is]]
             [com.fourclojure.problem.70 :refer [solutions]]))
 
