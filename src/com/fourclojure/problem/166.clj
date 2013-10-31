@@ -4,12 +4,10 @@
 
 (def my-solution
   (fn [less-than x y]
-    (let [xy (less-than x y)
-          yx (less-than y x)]
-      (cond
-        (= xy yx) :eq
-        xy :lt
-        :else :gt)))
+    (cond
+      (less-than x y) :lt
+      (less-than y x) :gt
+      :else :eq))
 )
 
 
