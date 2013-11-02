@@ -1,5 +1,7 @@
 (ns com.fourclojure.problem.166
-  "Comparisons")
+  "Comparisons:
+   Write a function that takes three arguments, a less than operator for the data and two items to compare.
+   The function should return a keyword describing the relationship between the two items (:lt :gt :eq).")
 
 
 (def my-solution
