@@ -20,4 +20,17 @@
 )
 
 
-(def solutions [my-solution])
+(def recursive-map-solution
+  ; inspired by user darren's solution
+  (fn [formula]
+    (fn [value-map]
+      ((fn compute [part]
+         (if (sequential? part)
+           (apply ({'+ + '- - '* * '/ /} (first part)) (map compute (rest part)))
+           (value-map part part)))
+       formula)))
+)
+
+
+(def solutions [my-solution
+                recursive-map-solution])

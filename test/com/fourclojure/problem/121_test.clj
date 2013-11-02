@@ -9,6 +9,7 @@
          ; [result formula values]
            [2 '(/ a b) '{b 8 a 16}]
            [8 '(+ a b 2) '{a 2 b 4}]
+           [7 '(+ [- a 1] b 2) '{a 2 b 4}]
            [1 '(/ (+ x 2) (* 3 (+ y 1))) '{x 4 y 1}]
          ]]
        (doseq [solution solutions
