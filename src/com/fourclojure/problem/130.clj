@@ -8,7 +8,7 @@
   (fn [new-root tree]
     (reduce
       ; handle the actual re-parenting
-      #(concat %2 (list (filter (complement #{%2}) %1)))
+      #(concat %2 (list (remove #{%2} %1)))
 
       ; determine nodes to re-parent
       (loop [nodes-to-reparent '()
