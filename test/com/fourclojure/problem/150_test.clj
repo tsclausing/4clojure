@@ -26,4 +26,10 @@
              (* 111111111 111111111)))
 
       (is (= (set (take 199 (solution 0)))
-             (set (map #(first (solution %)) (range 0 10000))))))))
+             (set (map #(first (solution %)) (range 0 10000)))))
+
+      (is (= true
+             (apply < (take 6666 (solution 9999999)))))
+
+      (is (= (nth (solution 0) 10101)
+             9102019)))))
