@@ -70,6 +70,15 @@
 )
 
 
+(defn reflect [number]
+  (let [num-length (Math/floor (Math/log10 number))]
+    (reduce #(+ (* 10 %1) (first %2))
+            0
+            (take (+ num-length 2) (iterate
+                                     (fn [[digit number]] (vector (rem number 10) (quot number 10)))
+                                     [0 number])))))
+
+
 (def my-solution3
   "Placeholder for solution with no number<->string conversions."
 )
