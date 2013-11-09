@@ -28,8 +28,8 @@
           start-left (inc (Long/parseLong str-start-left))
           ;_ (println :start-left start-left)
           start-palindrome (if start-a?
-                           (clojure.string/join (cons str-start-left (reverse (butlast str-start-left))))
-                           (clojure.string/join (cons str-start-left (reverse str-start-left))))
+                           (str str-start-left (clojure.string/join (reverse (butlast str-start-left))))
+                           (str str-start-left (clojure.string/join (reverse str-start-left))))
           ;_ (println :start-palindrome start-palindrome)
           ]
 
@@ -48,8 +48,8 @@
 
                              str-left (str left)
                              new-palindrome (if a?
-                                              (clojure.string/join (cons str-left (reverse (butlast str-left))))
-                                              (clojure.string/join (cons str-left (reverse str-left))))
+                                              (str str-left (clojure.string/join (reverse (butlast str-left))))
+                                              (str str-left (clojure.string/join (reverse str-left))))
 
                              ret-val [new-palindrome
                                       new-a?
@@ -67,6 +67,11 @@
                       start-left]
                      )))))
 
+)
+
+
+(def my-solution3
+  "Placeholder for solution with no number<->string conversions."
 )
 
 
