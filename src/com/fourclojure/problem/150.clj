@@ -70,17 +70,31 @@
 )
 
 
-(defn reflect [number]
-  (let [num-length (Math/floor (Math/log10 number))]
-    (reduce #(+ (* 10 %1) (first %2))
-            0
-            (take (+ num-length 2) (iterate
-                                     (fn [[digit number]] (vector (rem number 10) (quot number 10)))
-                                     [0 number])))))
+(defn n-count [a]
+  "or with interop ... (inc (Math/floor (Math/log10 a)))"
+  (count (take-while pos? (iterate (partial #(quot % 10)) a))))
+
+(defn n-conj [a b]
+  (+ b (*
+         (apply * (repeat (n-count b) 10))
+         a)))
+
+(defn n-reverse [a]
+  (reduce #(+ (* 10 %1) (first %2))
+          0
+          (take (inc (n-count a)) (iterate
+                                    (fn [[digit number]] [(rem number 10) (quot number 10)])
+                                    [0 a]))))
+
+(defn palindrome [left compact?]
+  "For some number `a`, return its full or compact palindrome.
+   e.g.: 123 becomes 123321, or compact becomes 12321"
+  (let [right (if compact? (quot left 10) left)]
+    (n-conj left (n-reverse right))))
 
 
 (def my-solution3
-  "Placeholder for solution with no number<->string conversions."
+  "Solution with no number<->string conversions and no Java interop."
 )
 
 
