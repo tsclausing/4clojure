@@ -113,26 +113,28 @@
                         '(0))))
 
             (inc-digits [d]
-                        (loop [d d
-                               r 1
-                               o '()]
-                          (if (or (pos? r) (seq d))
-                            (let [sum (+ (or (last d) 0) r)
-                                  d2 (rem sum 10)
-                                  r2 (quot sum 10)]
-                              (recur
-                                (butlast d)
-                                r2
-                                (conj o d2)))
-                            o)))
+                        (loop [d d ; digits
+                               r 1 ; remainder
+                               o '()] ; output
+                          (cond
+                            (not (pos? r)) ; no remainder? done
+                              (concat d o)
+                            (or (pos? r) (seq d)) ; remainder or more digits? continue
+                              (let [sum (+ (or (last d) 0) r)
+                                    [d2 r2] (if (> sum 9)
+                                              [(rem sum 10) (quot sum 10)]
+                                              [nil nil])]
+                                (recur
+                                  (butlast d)
+                                  (or r2 0)
+                                  (conj o (or d2 sum)))))))
 
             (palindrome-digits [d odd?]
                                (let [d-right (if odd? (-> d butlast reverse) (reverse d))]
                                  (concat d d-right)))
 
             (from-digits [d]
-                         (let [d-count (count d)]
-                           (reduce #(+ %2 (* 10 %)) 0 d)))]
+                         (reduce #(+ (* 10 %) %2) 0 d))]
 
       ; get starting digits from start integer
       (let [s-digits (digits start)
@@ -141,7 +143,7 @@
             s-left (take (/ s-count 2) s-digits)]
 
         ; lazy sequence
-        (filter #(>= % start)
+        (drop-while #(< % start)
                 (map (comp from-digits first)
                      (iterate (fn [[palindrome, left odd? pow]]
                                 (let [end? (every? #{9} left)
@@ -151,7 +153,7 @@
                                       n-odd (if end? (not odd?) odd?) ; toggle odd at the end of every run
                                       n-pow (if (and end? (not odd?)) (inc pow) pow)] ; increment pow at end of an even run
 
-                                                                                      ; next values
+                                  ; next values
                                   [(palindrome-digits n-left n-odd)
                                    n-left
                                    n-odd
