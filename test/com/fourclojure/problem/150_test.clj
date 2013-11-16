@@ -5,7 +5,8 @@
 
 (deftest solution-150
   (testing "Palindromic Numbers"
-    (doseq [solution solutions]
+    (doseq [solution solutions] (time (do
+      (println solution)
 
       (is (= (take 26 (solution 0))
              [0 1 2 3 4 5 6 7 8 9
@@ -32,4 +33,4 @@
              (apply < (take 6666 (solution 9999999)))))
 
       (is (= (nth (solution 0) 10101)
-             9102019)))))
+             9102019)))))))
