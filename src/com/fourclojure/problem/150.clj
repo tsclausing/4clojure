@@ -98,4 +98,72 @@
 )
 
 
-(def solutions [my-solution2])
+;; Solution 4 - No number<->string conversion. Treats numbers as sequences of digits.
+
+(def my-solution4
+  (fn [start]
+
+    (letfn [(digits [n]
+                    (let [len (inc (Math/floor (Math/log10 n)))
+                          lazy-digits (map (fn [i]
+                                             (int (rem (Math/floor (/ n (Math/pow 10 (- len i)))) 10)))
+                                           (range 1 (inc len)))]
+                      (if (first lazy-digits)
+                        lazy-digits
+                        '(0))))
+
+            (inc-digits [d]
+                        (loop [d d
+                               r 1
+                               o '()]
+                          (if (or (pos? r) (seq d))
+                            (let [sum (+ (or (last d) 0) r)
+                                  d2 (rem sum 10)
+                                  r2 (quot sum 10)]
+                              (recur
+                                (butlast d)
+                                r2
+                                (conj o d2)))
+                            o)))
+
+            (palindrome-digits [d odd?]
+                               (let [d-right (if odd? (-> d butlast reverse) (reverse d))]
+                                 (concat d d-right)))
+
+            (from-digits [d]
+                         (let [d-count (count d)]
+                           (reduce #(+ %2 (* 10 %)) 0 d)))]
+
+      ; get starting digits from start integer
+      (let [s-digits (digits start)
+            s-count (count s-digits)
+            s-odd? (odd? s-count)
+            s-left (take (/ s-count 2) s-digits)]
+
+        ; lazy sequence
+        (filter #(>= % start)
+                (map (comp from-digits first)
+                     (iterate (fn [[palindrome, left odd? pow]]
+                                (let [end? (every? #{9} left)
+                                      n-left (if (and end? odd?) ; reset at the end of an odd run, else increment
+                                               (digits (Math/pow 10 pow))
+                                               (inc-digits left))
+                                      n-odd (if end? (not odd?) odd?) ; toggle odd at the end of every run
+                                      n-pow (if (and end? (not odd?)) (inc pow) pow)] ; increment pow at end of an even run
+
+                                                                                      ; next values
+                                  [(palindrome-digits n-left n-odd)
+                                   n-left
+                                   n-odd
+                                   n-pow]))
+
+                              ; starting values
+                              [(palindrome-digits s-left s-odd?)
+                               s-left
+                               s-odd?
+                               (dec (count s-left))])))))))
+
+
+;; Solutions to test
+
+(def solutions [my-solution4])
