@@ -2,6 +2,8 @@
   "Palindromic Numbers")
 
 
+;; Solution 1 - Naive solution for very small palindromes. Excluded from tests due to poor performance.
+
 (def my-solution
   (fn [start]
     (letfn [(palindrome? [number]
@@ -11,80 +13,72 @@
 )
 
 
-(def my-solution2
+;; Solution 2 - Performant version of Solution 1
 
+(def my-solution2
   (fn [start]
     (let [str-start (str start)
           start-a? (-> str-start count odd?)
-          ;_ (println :start-a? start-a?)
           start-stage-pow (dec (Math/ceil (/ (count str-start) 2)))
-          ;_ (println :start-stage-pow start-stage-pow)
           start-stage (Math/pow 10 start-stage-pow)
-          ;_ (println :start-stage start-stage)
           str-start-left (clojure.string/join (take (inc start-stage-pow) str-start))
-          ;_ (println :str-start-left str-start-left)
           start-stage-end (* 10 start-stage)
-          ;_ (println :start-stage-end start-stage-end)
           start-left (inc (Long/parseLong str-start-left))
-          ;_ (println :start-left start-left)
           start-palindrome (if start-a?
                            (str str-start-left (clojure.string/join (reverse (butlast str-start-left))))
-                           (str str-start-left (clojure.string/join (reverse str-start-left))))
-          ;_ (println :start-palindrome start-palindrome)
-          ]
+                           (str str-start-left (clojure.string/join (reverse str-start-left))))]
 
-      (filter #(>= % start)
+      (drop-while #(< % start)
               (map #(Long/parseLong (first %))
                    (iterate
                      (fn [[palindrome, a? stage stage-end left]]
-
                        (let [stage-end? (= (inc left) stage-end)
-
                              new-a? (if stage-end? (not a?) a?)
                              new-stage (if (and
                                              (not a?)
                                              stage-end?) (* 10 stage) stage)
                              new-left (if stage-end? new-stage (inc left))
-
                              str-left (str left)
                              new-palindrome (if a?
                                               (str str-left (clojure.string/join (reverse (butlast str-left))))
-                                              (str str-left (clojure.string/join (reverse str-left))))
+                                              (str str-left (clojure.string/join (reverse str-left))))]
+                         [new-palindrome
+                          new-a?
+                          new-stage
+                          (* 10 new-stage)
+                          new-left]))
 
-                             ret-val [new-palindrome
-                                      new-a?
-                                      new-stage
-                                      (* 10 new-stage)
-                                      new-left]
-                             ]
-                         ret-val
-
-                         ))
                      ; initial values
                      [start-palindrome
                       start-a?
                       (int start-stage) (int start-stage-end),
-                      start-left]
-                     )))))
-
+                      start-left])))))
 )
 
 
-(defn n-count [a]
+;; Solution 3 - Incomplete. No strings or Java interop.
+
+(defn n-count [n]
   "or with interop ... (inc (Math/floor (Math/log10 a)))"
-  (count (take-while pos? (iterate (partial #(quot % 10)) a))))
+  (count (take-while pos? (iterate (partial #(quot % 10)) n))))
 
 (defn n-conj [a b]
   (+ b (*
          (apply * (repeat (n-count b) 10))
          a)))
 
-(defn n-reverse [a]
+(defn n-reverse [n]
   (reduce #(+ (* 10 %1) (first %2))
           0
-          (take (inc (n-count a)) (iterate
+          (take (inc (n-count n)) (iterate
                                     (fn [[digit number]] [(rem number 10) (quot number 10)])
-                                    [0 a]))))
+                                    [0 n]))))
+
+(defn n-take [i n]
+  (nth (reverse (take-while pos? (iterate (partial #(quot % 10)) n))) (dec i)))
+
+(defn n-start [n]
+  )
 
 (defn palindrome [left compact?]
   "For some number `a`, return its full or compact palindrome.
@@ -102,7 +96,6 @@
 
 (def my-solution4
   (fn [start]
-
     (letfn [(digits [n]
                     (let [len (inc (Math/floor (Math/log10 n)))
                           lazy-digits (map (fn [i]
@@ -166,6 +159,12 @@
                                (dec (count s-left))])))))))
 
 
+;; Solution 5 - No mirror/palindrome function. Join left and right lazy sequences.
+
+(def my-solution5)
+
+
 ;; Solutions to test
 
-(def solutions [my-solution4])
+(def solutions [my-solution2
+                my-solution4])
