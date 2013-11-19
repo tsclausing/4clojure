@@ -161,7 +161,20 @@
 
 ;; Solution 5 - No mirror/palindrome function. Join left and right lazy sequences.
 
-(def my-solution5)
+(defn my-solution5 [start]
+  "Infinite palindromes"
+  (letfn [(left [] (mapcat #(repeat 2
+                                    (range (Math/pow 10 %) (Math/pow 10 (inc %))))
+                           (range)))]
+    (drop-while #(< % start)
+                (concat '(0)
+                        (mapcat #(map (fn [d]
+                                        (let [left (str (int d))
+                                              right (clojure.string/join (reverse (take ((if (odd? %) identity dec) (count left)) left)))]
+                                          (Long/parseLong (str left right))))
+                                      %2)
+                                (range)
+                                (left))))))
 
 
 ;; Solutions to test
