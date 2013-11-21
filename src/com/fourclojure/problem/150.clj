@@ -4,11 +4,11 @@
 
 ;; reference functions
 
-(defn int->seq [n]
+(defn int->seq
   "Convert an integer to a seq of digits"
-  (loop [n n l '()]
-    (let [l (conj l (rem n 10))]
-      (if (> n 9) (recur (quot n 10) l) l))))
+  ([n] (int->seq n '()))
+  ([n l] (let [l (conj l (rem n 10))]
+           (if (> n 9) (recur (quot n 10) l) l))))
 
 (defn seq->int [s]
   "Convert a seq of digits to an integer"
