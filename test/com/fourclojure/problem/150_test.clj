@@ -1,11 +1,28 @@
 (ns com.fourclojure.problem.150-test
   (:require [clojure.test :refer [deftest testing is]]
-            [com.fourclojure.problem.150 :refer [solutions]]))
+            [com.fourclojure.problem.150 :as p150]))
 
+
+;; test parts
+
+(deftest int-to-seq
+  (testing "integer to sequence of digits"
+    (is (= '(1 2 3) (p150/int->seq 123)))
+    (is (= '(1 0 0) (p150/int->seq 100)))
+    (is (= '(0) (p150/int->seq 0)))))
+
+(deftest seq-to-int
+  (testing "sequence of digits to integer"
+    (is (= (p150/seq->int '(1 2 3)) 123))
+    (is (= (p150/seq->int '(1 0 0)) 100))
+    (is (= (p150/seq->int '(0)) 0))))
+
+
+;; test solutions
 
 (deftest solution-150
   (testing "Palindromic Numbers"
-    (doseq [solution solutions] (time (do
+    (doseq [solution p150/solutions] (time (do
       (println solution)
 
       (is (= (take 26 (solution 0))
