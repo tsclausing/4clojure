@@ -14,6 +14,14 @@
   "Convert a seq of digits to an integer"
   (reduce #(+ (* 10 %1) %2) 0 s))
 
+(defn pal
+  "Convert a seq into a palindrome"
+  ([i] (pal i false))
+  ([i odd?] (let [s (int->seq i)
+                  rs (reverse (if odd? (butlast s) s))]
+              (+
+                (* i (long (Math/pow 10 (count rs))))
+                (seq->int rs)))))
 
 ;; solution
 

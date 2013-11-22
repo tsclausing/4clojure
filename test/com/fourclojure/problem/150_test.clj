@@ -17,6 +17,13 @@
     (is (= (p150/seq->int '(1 0 0)) 100))
     (is (= (p150/seq->int '(0)) 0))))
 
+(deftest pal
+  (testing "create a palindrome from the left half"
+    (is (= (p150/pal 1 true) 1))
+    (is (= (p150/pal 1) 11))
+    (is (= (p150/pal 12345 true)) 123454321)
+    (is (= (p150/pal 12345 false)) 1234554321)))
+
 
 ;; test solutions
 
