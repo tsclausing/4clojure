@@ -19,10 +19,18 @@
 
 (deftest pal
   (testing "create a palindrome from the left half"
-    (is (= (p150/pal 1 true) 1))
-    (is (= (p150/pal 1) 11))
-    (is (= (p150/pal 12345 true)) 123454321)
-    (is (= (p150/pal 12345 false)) 1234554321)))
+    (is (= (p150/pal 1 true)
+           (p150/palstr 1 true)
+           1))
+    (is (= (p150/pal 1)
+           (p150/palstr 1)
+           11))
+    (is (= (p150/pal 12345 true)
+           (p150/palstr 12345 true)
+           123454321))
+    (is (= (p150/pal 12345 false)
+           (p150/palstr 12345 false)
+           1234554321))))
 
 
 ;; test solutions
