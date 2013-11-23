@@ -15,12 +15,12 @@
   (reduce #(+ (* 10 %1) %2) 0 s))
 
 (defn pal
-  "Convert a seq into a palindrome"
+  "Convert an integer into an even or odd length palindrome"
   ([i] (pal i false))
   ([i odd?] (let [s (int->seq i)
                   rs (reverse (if odd? (butlast s) s))]
               (+
-                (* i (long (Math/pow 10 (count rs))))
+                (* i (apply * (repeat (count rs) 10N)))
                 (seq->int rs)))))
 
 ;; solution
