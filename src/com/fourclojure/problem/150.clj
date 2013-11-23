@@ -23,6 +23,13 @@
                 (* i (apply * (repeat (count rs) 10N)))
                 (seq->int rs)))))
 
+(defn palstr
+  "Implementation of pal using string<->integer conversion"
+  ([i] (palstr i false))
+  ([i odd?] (let [s (str i)]
+              (bigint (str i (clojure.string/join (reverse (if odd? (butlast s) s))))))))
+
+
 ;; solution
 
 (def solutions [])
