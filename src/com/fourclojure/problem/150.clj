@@ -32,4 +32,9 @@
 
 ;; solution
 
-(def solutions [])
+(def my-solution
+  (fn [i]
+    "Starting with i, return an infinite lazy sequence of palindromes")
+)
+
+(def solutions [my-solution])
