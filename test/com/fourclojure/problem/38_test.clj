@@ -1,6 +1,6 @@
 (ns com.fourclojure.problem.38-test
   (:require [clojure.test :refer [deftest testing is]]
-             [com.fourclojure.problem.38 :refer [solutions]]))
+            [com.fourclojure.problem.38 :refer [solutions]]))
 
 
 (deftest solution-38
