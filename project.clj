@@ -2,6 +2,7 @@
   :description "4clojure.com problem solutions"
   :url "http://www.4clojure.com/user/tsclausing"
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [criterium "0.4.2"]]
+                 [criterium "0.4.2"]
+                 [midje "1.6.0"]]
   :main com.4clojure
   :profiles {:uberjar {:aot :all}})
